@@ -3,6 +3,7 @@ package com.atguigu.gmall.product.controller;
 import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.model.product.BaseAttrInfo;
 import com.atguigu.gmall.model.product.BaseAttrValue;
+import com.atguigu.gmall.model.product.BaseTrademark;
 import com.atguigu.gmall.product.service.BaseAttrInfoService;
 import com.atguigu.gmall.product.service.BaseAttrValueService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -50,4 +51,6 @@ public class BaseAttrController {
        List<BaseAttrValue> values = baseAttrValueService.getAttrValueList(attrId);
         return Result.ok(values);
     }
+
+
 }

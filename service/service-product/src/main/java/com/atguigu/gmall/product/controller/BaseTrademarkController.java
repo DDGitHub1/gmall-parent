@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @Author : dyh
  * @Date: 2022/8/23
@@ -62,4 +64,14 @@ public class BaseTrademarkController {
     }
 
     //admin/product/fileUpload 文件上传
+
+    /**
+     * 获取所有品牌
+     * @return
+     */
+    @GetMapping("/baseTrademark/getTrademarkList")
+    public Result getTrademarkList(){
+        List<BaseTrademark> list = baseTrademarkService.list();
+        return Result.ok(list);
+    }
 }

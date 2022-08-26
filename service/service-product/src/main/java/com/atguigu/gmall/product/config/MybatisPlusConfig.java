@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @Author : dyh
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @Description : com.atguigu.gmall.product.config
  * @Version : 1.0
  */
+@EnableTransactionManagement // 开启事务注解
 @Configuration //分页配置
 public class MybatisPlusConfig {
     //1、把MybatisPlus的插件主体（总插件）放到容器
