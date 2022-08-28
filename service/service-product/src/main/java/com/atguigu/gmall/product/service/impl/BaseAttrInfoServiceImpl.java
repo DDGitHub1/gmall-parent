@@ -35,12 +35,13 @@ public class BaseAttrInfoServiceImpl extends ServiceImpl<BaseAttrInfoMapper, Bas
     }
 
     @Override
-    public void saveAttrInfo(BaseAttrInfo baseAttrInfo) {
-        Long id = baseAttrInfo.getId();
-        if(id==null){
-            addBaseAttrInfo(baseAttrInfo);
-        }else {
-            updateBaseAttrInfo(baseAttrInfo);
+    public void saveAttrInfo(BaseAttrInfo info) {
+        if (info.getId() == null) {
+            //1、进行属性新增操作
+            addBaseAttrInfo(info);
+        } else {
+            //2、进行属性修改操作
+            updateBaseAttrInfo(info);
         }
     }
     private void updateBaseAttrInfo(BaseAttrInfo info){

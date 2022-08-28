@@ -2,6 +2,7 @@ package com.atguigu.gmall.item;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @Author : dyh
@@ -9,6 +10,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
  * @Description : com.atguigu.gmall.item
  * @Version : 1.0
  */
+@EnableFeignClients
 @SpringCloudApplication
 public class ItemMainApplication {
     public static void main(String[] args) {

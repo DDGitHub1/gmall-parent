@@ -38,6 +38,18 @@ public class BaseAttrController {
     return Result.ok(infos);
     }
 
+    /**
+     * 保存、修改属性信息二合一的方法
+     * 前端把所有页面录入的数据以json的方式post传给我们
+     * 请求体：
+     *  {"id":null,"attrName":"出厂日期","category1Id":0,"category2Id":0,"category3Id":0,"attrValueList":[{"valueName":"2019","edit":false},{"valueName":"2020","edit":false},{"valueName":"2021","edit":false},{"valueName":"2022","edit":false}],"categoryId":2,"categoryLevel":1}
+     *
+     *  取出前端发送的请求的请求体中的数据 @RequestBody，
+     *  并把这个数据(json)转成指定的BaseAttrInfo对象，
+     *  BaseAttrInfo封装前端提交来的所有数据
+     *
+     *
+     */
     @PostMapping("/saveAttrInfo")
     public Result saveAttrInfo(@RequestBody BaseAttrInfo baseAttrInfo){
 

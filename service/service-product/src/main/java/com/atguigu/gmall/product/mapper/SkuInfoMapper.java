@@ -12,7 +12,9 @@ import org.apache.ibatis.annotations.Param;
 */
 public interface SkuInfoMapper extends BaseMapper<SkuInfo> {
 
-    void updateIsSale(Long skuId,@Param("sale") int i);
+    void updateIsSale(@Param("skuId")Long skuId,@Param("sale") int sal);
+
+    SkuInfo get1010Price(@Param("skuId") Long skuId);
 }
 
 

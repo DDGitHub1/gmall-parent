@@ -27,4 +27,7 @@
         update sku_info set is_sale=#{sale} where
 id=#{skuId}
     </update>
+    <select id="get1010Price" resultType="com.atguigu.gmall.model.product.SkuInfo">
+        SELECT price FROM sku_info WHERE id = #{skuId}
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.atguigu.gmall.product.service.impl;
 
 import com.atguigu.gmall.model.product.BaseCategory2;
+import com.atguigu.gmall.model.to.CategoryTreeTo;
 import com.atguigu.gmall.product.mapper.BaseCategory2Mapper;
 import com.atguigu.gmall.product.service.BaseCategory2Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -26,5 +27,15 @@ public class BaseCategory2ServiceImpl extends ServiceImpl<BaseCategory2Mapper, B
         wrapper.eq("category1_id",c1Id);
         List<BaseCategory2> list = baseCategory2Mapper.selectList(wrapper);
         return list;
+    }
+
+    /**
+     * 查询所有分类以及下面的子分类 并组装成树形结构
+     * @return
+     */
+    @Override
+    public List<CategoryTreeTo> getAllCategoryWithTree() {
+        List<CategoryTreeTo> categoryTreeTos = baseCategory2Mapper.getAllCategoryWithTree();
+        return categoryTreeTos;
     }
 }

@@ -38,34 +38,72 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
     @Transactional
     @Override
     public void saveSpuInfo(SpuInfo info) {
-        //1.把 spu基本信息保存到 spu_info表中
+
+        //1、把 spu基本信息保存到 spu_info表中
         spuInfoMapper.insert(info);
-        Long spuId = info.getId();
+        Long spuId = info.getId(); //拿到spu保存后的自增id
+
         //2、把 spu的图片保存到 spu_image
         List<SpuImage> imageList = info.getSpuImageList();
-        for (SpuImage spuImage : imageList) {
-            spuImage.setSpuId(spuId);
-        }
-        spuImageService.saveBatch(imageList);
-        //3.保存销售属性名到spu_sale_attr
-        List<SpuSaleAttr> attrList = info.getSpuSaleAttrList();
-        for (SpuSaleAttr spuSaleAttr : attrList) {
+        for (SpuImage image : imageList) {
             //回填spu_id
-            spuSaleAttr.setId(spuId);
-            //4.拿到这个销售名对应的所有销售属性值的集合
-            List<SpuSaleAttrValue> valueList = spuSaleAttr.getSpuSaleAttrValueList();
+            image.setSpuId(spuId);
+        }
+        //批量保存图片
+        spuImageService.saveBatch(imageList);
+
+
+        //3、保存销售属性名 到 spu_sale_attr
+        List<SpuSaleAttr> attrNameList = info.getSpuSaleAttrList();
+        for (SpuSaleAttr attr : attrNameList) {
+            //回填spuId
+            attr.setSpuId(spuId);
+            //4、拿到这个销售属性名对应的所有销售属性值集合
+            List<SpuSaleAttrValue> valueList = attr.getSpuSaleAttrValueList();
             for (SpuSaleAttrValue value : valueList) {
                 //回填spu_id
                 value.setSpuId(spuId);
-                String saleAttrName = spuSaleAttr.getSaleAttrName();
+                String saleAttrName = attr.getSaleAttrName();
                 //回填销售属性名
                 value.setSaleAttrName(saleAttrName);
             }
-            // 保存销售属性值
+            //保存销售属性值
             spuSaleAttrValueService.saveBatch(valueList);
         }
         //保存到数据库
-        spuSaleAttrService.saveBatch(attrList);
+        spuSaleAttrService.saveBatch(attrNameList);
+
+
+
+//        //1.把 spu基本信息保存到 spu_info表中
+//        spuInfoMapper.insert(info);
+//        Long spuId = info.getId();
+//        //2、把 spu的图片保存到 spu_image
+//        List<SpuImage> imageList = info.getSpuImageList();
+//        for (SpuImage spuImage : imageList) {
+//            //回填spu_id
+//            spuImage.setSpuId(spuId);
+//        }
+//        spuImageService.saveBatch(imageList);
+//        //3.保存销售属性名到spu_sale_attr
+//        List<SpuSaleAttr> attrList = info.getSpuSaleAttrList();
+//        for (SpuSaleAttr spuSaleAttr : attrList) {
+//            //回填spu_id
+//            spuSaleAttr.setId(spuId);
+//            //4.拿到这个销售名对应的所有销售属性值的集合
+//            List<SpuSaleAttrValue> valueList = spuSaleAttr.getSpuSaleAttrValueList();
+//            for (SpuSaleAttrValue value : valueList) {
+//                //回填spu_id
+//                value.setSpuId(spuId);
+//                String saleAttrName = spuSaleAttr.getSaleAttrName();
+//                //回填销售属性名
+//                value.setSaleAttrName(saleAttrName);
+//            }
+//            // 保存销售属性值
+//            spuSaleAttrValueService.saveBatch(valueList);
+//        }
+//        //保存到数据库
+//        spuSaleAttrService.saveBatch(attrList);
     }
 }
 

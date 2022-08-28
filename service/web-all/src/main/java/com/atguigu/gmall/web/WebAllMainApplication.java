@@ -2,6 +2,7 @@ package com.atguigu.gmall.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @Author : dyh
@@ -9,9 +10,19 @@ import org.springframework.cloud.client.SpringCloudApplication;
  * @Description : com.atguigu.gmall.web
  * @Version : 1.0
  */
+
+/**
+ * 不启用数据源的配置
+ * 1 datasourceAutoConfiguration
+ */
 @SpringCloudApplication
+@EnableFeignClients
+//@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+//@EnableDiscoveryClient
+//@EnableCircuitBreaker
 public class WebAllMainApplication {
     public static void main(String[] args) {
         SpringApplication.run(WebAllMainApplication.class,args);
     }
 }
+
