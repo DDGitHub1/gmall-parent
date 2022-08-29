@@ -21,10 +21,17 @@ import java.util.List;
 public class BaseCategory2ServiceImpl extends ServiceImpl<BaseCategory2Mapper, BaseCategory2> implements BaseCategory2Service {
     @Autowired
     BaseCategory2Mapper baseCategory2Mapper;
+
+    /**
+     * 查询1级分类下的所有二级分类
+     * @param c1Id
+     * @return
+     */
     @Override
     public List<BaseCategory2> getCategory1Child(Long c1Id) {
         QueryWrapper<BaseCategory2> wrapper = new QueryWrapper<>();
         wrapper.eq("category1_id",c1Id);
+        //查询1级分类下的所有二级分类
         List<BaseCategory2> list = baseCategory2Mapper.selectList(wrapper);
         return list;
     }

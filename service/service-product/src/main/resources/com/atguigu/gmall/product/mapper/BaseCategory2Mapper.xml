@@ -12,8 +12,7 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id
-        ,name,category1_id
+		id,name,category1_id
 	</sql>
 
 	<!--  无限极不定分类怎么封装？ -->
