@@ -27,6 +27,10 @@ spring:
           uri: lb://service-product
           predicates:  #断言
             - Path=/admin/product/**
+        - id: incr_route # 以 /admin/product 开头的所有请求都lb(loadbalancer)转给service-product
+          uri: lb://service-item
+          predicates: #断言
+            - Path=/lock/incr
 
         - id: web_all_route
           uri: lb://web-all

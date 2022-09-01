@@ -1,5 +1,6 @@
 package com.atguigu.gmall.item;
 
+import com.atguigu.gmall.common.config.RedissonAutoConfiguration;
 import com.atguigu.gmall.common.config.annotation.EnableThreadPool;
 import com.atguigu.gmall.common.config.threadpool.AppThreadPoolAutoConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -24,7 +25,7 @@ import org.springframework.context.annotation.Import;
  * - com.atguigu.gmall.common.**
  */
 //@Import(AppThreadPoolAutoConfiguration.class)
-
+@Import(RedissonAutoConfiguration.class)
 @EnableThreadPool
 @EnableFeignClients
 @SpringCloudApplication

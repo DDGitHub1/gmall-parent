@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.service.impl;
 
+import com.atguigu.gmall.common.constant.SysRedisConst;
 import com.atguigu.gmall.model.product.*;
 import com.atguigu.gmall.model.to.CategoryViewTo;
 import com.atguigu.gmall.model.to.SkuDetailTo;
@@ -9,6 +10,8 @@ import com.atguigu.gmall.product.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.atguigu.gmall.product.mapper.SkuInfoMapper;
 import jdk.nashorn.internal.ir.IfNode;
+import org.redisson.api.RBloomFilter;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springfox.documentation.annotations.ApiIgnore;
@@ -37,6 +40,8 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
     BaseCategory3Mapper baseCategory3Mapper;
     @Autowired
     SpuSaleAttrService spuSaleAttrService;
+    @Autowired
+    RedissonClient redissonClient;
     @Override
     public void saveSkuInfo(SkuInfo info) {
         //1.sku 基本信息保存到 sku_info
@@ -53,13 +58,17 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
             skuAttrValue.setSkuId(id);
         }
         skuAttrValueService.saveBatch(attrValueList);
-        //3、sku的销售属性名和值的关系保存到 sku_attr_value
+        //4.sku的销售属性名和值的关系保存到 sku_sale_attr_value
         List<SkuSaleAttrValue> skuSaleAttrValueList = info.getSkuSaleAttrValueList();
         for (SkuSaleAttrValue skuSaleAttrValue : skuSaleAttrValueList) {
             skuSaleAttrValue.setSkuId(id);
             skuSaleAttrValue.setSpuId(info.getSpuId());
         }
         skuSaleAttrValueService.saveBatch(skuSaleAttrValueList);
+
+        //把这个SkuId放到布隆过滤器中
+        RBloomFilter<Object> filter = redissonClient.getBloomFilter(SysRedisConst.BLOOM_SKUID);
+        filter.add(id);
     }
 
     @Override
@@ -123,8 +132,8 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
 
     @Override
     public BigDecimal get1010Price(Long skuId) {
-        SkuInfo skuInfo = skuInfoMapper.get1010Price(skuId);
-        return skuInfo.getPrice();
+        BigDecimal price = skuInfoMapper.getRealPrice(skuId);
+        return price;
     }
 
     @Override
@@ -137,6 +146,12 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
     public List<SkuImage> getDetailSkuImages(Long skuId) {
         List<SkuImage> imageList = skuImageService.getSkuImage(skuId);
         return imageList;
+    }
+
+    @Override
+    public List<Long> findAllSkuId() {
+        List<Long> skuIds = skuInfoMapper.getAllSkuId();
+        return skuIds;
     }
 
 
