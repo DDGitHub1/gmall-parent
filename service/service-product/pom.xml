@@ -28,6 +28,10 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-
+        <dependency>
+            <groupId>com.atguigu</groupId>
+            <artifactId>mall-cache-starter</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>

@@ -31,6 +31,13 @@ public class SkuIdBloomInitService {
     @Autowired
     RedissonClient redissonClient;
 
+    //TODO 布隆只能增，不能删除商品，如果真的数据库删除了商品，布隆怎么办？
+    //      定期布隆重建。
+    //【重建】：按钮触发
+
+
+
+
     //项目一启动就运行
     @PostConstruct //当前组件对象创建成功以后
     public void initSkuBloom(){
