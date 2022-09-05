@@ -23,7 +23,7 @@ public class SkuController {
     public Result getSkuList(@PathVariable("pn") Long pn,
                              @PathVariable("ps") Long ps){
 
-        Page<SkuInfo> page = new Page<>();
+        Page<SkuInfo> page = new Page<>(pn,ps);
         Page<SkuInfo> page1 = skuInfoService.page(page);
         return Result.ok(page1);
     }

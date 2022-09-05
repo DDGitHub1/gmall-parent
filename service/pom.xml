@@ -15,6 +15,7 @@
         <module>service-product</module>
         <module>service-item</module>
         <module>web-all</module>
+        <module>service-search</module>
     </modules>
 
 
@@ -89,6 +90,11 @@
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.atguigu</groupId>
+            <artifactId>feign-client</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
 </project>

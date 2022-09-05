@@ -45,7 +45,9 @@ public class BaseCategory2ServiceImpl extends ServiceImpl<BaseCategory2Mapper, B
     @GmallCache(cacheKey = SysRedisConst.CACHE_CATEGORYS)
     @Override
     public List<CategoryTreeTo> getAllCategoryWithTree() {
+        System.out.println("查询三级分类树形数据");
         List<CategoryTreeTo> categoryTreeTos = baseCategory2Mapper.getAllCategoryWithTree();
+
         return categoryTreeTos;
     }
 }
