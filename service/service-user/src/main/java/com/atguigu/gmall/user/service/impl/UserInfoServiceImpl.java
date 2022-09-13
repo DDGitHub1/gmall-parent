@@ -33,6 +33,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
 
     @Override
     public LoginSuccessVo login(UserInfo info) {
+        //令牌
         LoginSuccessVo vo = new LoginSuccessVo();
         //1.查数据库
         LambdaQueryWrapper<UserInfo> wrapper = new LambdaQueryWrapper<>();

@@ -8,8 +8,6 @@ import com.atguigu.gmall.search.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
-
 /**
  * @Author : dyh
  * @Date: 2022/9/5
