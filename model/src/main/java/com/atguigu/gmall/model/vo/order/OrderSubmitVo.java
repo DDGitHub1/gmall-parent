@@ -1,0 +1,25 @@
+package com.atguigu.gmall.model.vo.order;
+
+import lombok.Data;
+
+import java.util.List;
+
+/**
+ * @Author : dyh
+ * @Date: 2022/9/14
+ * @Description : com.atguigu.gmall.model.vo.order
+ * @Version : 1.0
+ */
+
+/**
+ * 订单提交数据模型
+ */
+@Data
+public class OrderSubmitVo {
+    private String consignee;
+    private String consigneeTel;
+    private String deliveryAddress;
+    private String paymentWay;
+    private String orderComment;
+    private List<CartInfoVo> orderDetailList;
+}

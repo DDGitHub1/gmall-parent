@@ -16,13 +16,17 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * 不启用数据源的配置
  * 1 datasourceAutoConfiguration
  */
+//@EnableFeignClients(
+//
+// "com.atguigu.gmall.feign.item",
+//        "com.atguigu.gmall.feign.product",
+//        "com.atguigu.gmall.feign.search",
+//        "com.atguigu.gmall.feign.cart",
+//        "com.atguigu.gmall.feign.order")
 @EnableAutoFeignInterceptor
 @SpringCloudApplication
 @EnableFeignClients(basePackages = {
-        "com.atguigu.gmall.feign.item",
-        "com.atguigu.gmall.feign.product",
-        "com.atguigu.gmall.feign.search",
-        "com.atguigu.gmall.feign.cart"
+        "com.atguigu.gmall.feign"
 })
 //@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 //@EnableDiscoveryClient

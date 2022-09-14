@@ -72,11 +72,17 @@ public interface CartService {
     void deleteChecked(String cartKey);
 
     /**
-     *
+     *删除购物车中商品
      * @param skuId
      * @param cartKey
      */
     void deleteCartItem(Long skuId, String cartKey);
+    /**
+     * 获取指定购物车中所有选中的商品
+     * @param cartKey
+     * @return
+     */
+    List<CartInfo> getCheckedItems(String cartKey);
 
     /**
      * 合并购物车
@@ -86,7 +92,7 @@ public interface CartService {
     /**
      * 更新这个购物车中所有商品的价格
      * @param carKey
-     * @param infos 所有的商品
+     * @param
      */
-     void updateCartAllItemsPrice(String carKey,List<CartInfo> infos);
+     void updateCartAllItemsPrice(String carKey);
 }
