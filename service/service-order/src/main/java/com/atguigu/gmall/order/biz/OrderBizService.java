@@ -37,4 +37,11 @@ public interface OrderBizService {
      * @return
      */
     Long submitOrder(OrderSubmitVo submitVo, String tradeNo);
+
+    /**
+     * 关闭订单
+     * @param orderId
+     * @param userId
+     */
+    void closeOrder(Long orderId, Long userId);
 }

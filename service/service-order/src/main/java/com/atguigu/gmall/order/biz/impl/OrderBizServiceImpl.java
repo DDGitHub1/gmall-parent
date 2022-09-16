@@ -1,4 +1,5 @@
 package com.atguigu.gmall.order.biz.impl;
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import com.atguigu.gmall.feign.product.SkuProductFeignClient;
 import com.atguigu.gmall.feign.user.UserFeignClient;
 import com.atguigu.gmall.feign.ware.WareFeignClient;
 import com.atguigu.gmall.model.cart.CartInfo;
+import com.atguigu.gmall.model.enums.ProcessStatus;
 import com.atguigu.gmall.model.user.UserAddress;
 
 import com.atguigu.gmall.model.vo.order.CartInfoVo;
@@ -26,6 +28,7 @@ import com.atguigu.gmall.model.vo.order.OrderSubmitVo;
 import com.atguigu.gmall.model.vo.user.UserAuthInfo;
 import com.atguigu.gmall.order.biz.OrderBizService;
 import com.atguigu.gmall.order.service.OrderInfoService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -52,6 +55,8 @@ public class OrderBizServiceImpl implements OrderBizService {
     @Autowired
     OrderInfoService orderInfoService;
 
+    @Autowired
+    RabbitTemplate rabbitTemplate;
     /**
      * 获取订单确认页的数据
      * @return
@@ -221,15 +226,30 @@ public class OrderBizServiceImpl implements OrderBizService {
         }
         //4、把订单信息保存到数据库
         Long orderId = orderInfoService.saveOrder(submitVo,tradeNo);
+
+
         //5.清楚购物车中选中的商品
         cartFeignClient.deleteChecked();
         //45min不支付就要关闭。
         //占用大量内存
-        ScheduledExecutorService pool = Executors.newScheduledThreadPool(10);
-        pool.schedule(()->{
-
-        },45, TimeUnit.MINUTES);
+//        ScheduledExecutorService pool = Executors.newScheduledThreadPool(10);
+//        pool.schedule(()->{
+//
+//        },45, TimeUnit.MINUTES);
         return orderId;
+    }
+
+    /**
+     * 订单关闭
+     * @param orderId
+     * @param userId
+     */
+    @Override
+    public void closeOrder(Long orderId, Long userId) {
+        ProcessStatus closed = ProcessStatus.CLOSED;
+        List<ProcessStatus> expected = Arrays.asList(ProcessStatus.UNPAID, ProcessStatus.FINISHED);
+        //如果是未支付或者已结束才可以关闭订单
+        orderInfoService.changeOrderStatus(orderId,userId,closed,expected);
     }
 
 }

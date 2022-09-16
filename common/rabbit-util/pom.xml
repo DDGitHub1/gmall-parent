@@ -9,26 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>common-util</artifactId>
-    <packaging>jar</packaging>
-
+    <artifactId>rabbit-util</artifactId>
     <dependencies>
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.atguigu</groupId>-->
-<!--            <artifactId>model</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
-        <dependency>
-            <groupId>org.springframework.amqp</groupId>
-            <artifactId>spring-amqp</artifactId>
-        </dependency>
-
     </dependencies>
-
-
 
 </project>
